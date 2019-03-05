@@ -1,0 +1,23 @@
+system_packages:
+  - build-essential
+  - git
+  - nginx
+  - libpq-dev
+  - python-pip
+  - python3-pip
+  - postgresql
+  - supervisor
+  - docker.io
+  - apache2-utils
+  - golang-go
+
+python_packages:
+  - virtualenv
+  - pipenv
+
+users:
+  - name: nabarun
+    authorized_keys:
+      - authorized_keys/nabarun_id_rsa.pub
+    groups: sudo
+    files: []
