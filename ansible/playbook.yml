@@ -4,19 +4,17 @@
   vars_files:
     - vars.yml
   gather_facts: false
-  sudo: true
+  become: true
 
   tasks:
     - name: Update the Ubuntu package cache
       apt: update_cache=yes cache_valid_time=604800
 
     - name: Install system packages
-      apt: package={{item}} state=present
-      with_items: "{{ system_packages }}"
+      apt: package={{system_packages}} state=present
 
     - name: Install python packages
-      pip: name={{item}}
-      with_items: "{{ python_packages }}"
+      pip: name={{python_packages}} executable=pip3
 
     - name: Create user groups
       group: name={{item.name}} state={{item.state | default('present')}}
