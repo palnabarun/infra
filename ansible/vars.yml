@@ -11,6 +11,7 @@ system_packages:
   - apache2-utils
   - golang-go
   - weechat
+  - zsh
 
 python_packages:
   - virtualenv

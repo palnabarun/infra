@@ -45,3 +45,6 @@
     - name: Enable password less sudo for users in sudo group
       lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL:ALL) NOPASSWD:ALL'"
 
+    - name: Install Oh My ZSH
+      script: ../files/install-zsh.sh
+      become: false
