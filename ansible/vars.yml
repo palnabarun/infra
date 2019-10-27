@@ -10,10 +10,12 @@ system_packages:
   - docker.io
   - apache2-utils
   - golang-go
+  - weechat
 
 python_packages:
   - virtualenv
   - pipenv
+  - virtualenvwrapper
 
 users:
   - name: nabarun
