@@ -5,6 +5,13 @@ resource "digitalocean_record" "alpha" {
   value  = "${google_compute_instance.alpha.network_interface.0.access_config.0.nat_ip}"
 }
 
+resource "digitalocean_record" "apps" {
+  domain = "nbrn.xyz"
+  type   = "A"
+  name   = "apps"
+  value  = "${google_compute_instance.apps.network_interface.0.access_config.0.nat_ip}"
+}
+
 resource "digitalocean_record" "dc-lb" {
   domain = "nbrn.xyz"
   type   = "A"
