@@ -6,6 +6,60 @@ resource "digitalocean_domain" "xyz_nbrn" {
   name = "nbrn.xyz"
 }
 
+resource "digitalocean_record" "run_naba_mx" {
+  domain = digitalocean_domain.run_naba.name
+  name = "@"
+  type = "MX"
+  value = "ASPMX.L.GOOGLE.COM."
+  priority = 1
+  ttl = 3600
+}
+
+resource "digitalocean_record" "run_naba_mx_alt1" {
+  domain = digitalocean_domain.run_naba.name
+  name = "@"
+  type = "MX"
+  value = "ALT1.ASPMX.L.GOOGLE.COM."
+  priority = 5
+  ttl = 3600
+}
+
+resource "digitalocean_record" "run_naba_mx_alt2" {
+  domain = digitalocean_domain.run_naba.name
+  name = "@"
+  type = "MX"
+  value = "ALT2.ASPMX.L.GOOGLE.COM."
+  priority = 5
+  ttl = 3600
+}
+
+resource "digitalocean_record" "run_naba_mx_alt3" {
+  domain = digitalocean_domain.run_naba.name
+  name = "@"
+  type = "MX"
+  value = "ALT3.ASPMX.L.GOOGLE.COM."
+  priority = 10
+  ttl = 3600
+}
+
+resource "digitalocean_record" "run_naba_mx_alt4" {
+  domain = digitalocean_domain.run_naba.name
+  name = "@"
+  type = "MX"
+  value = "ALT4.ASPMX.L.GOOGLE.COM."
+  priority = 10
+  ttl = 3600
+}
+
+resource "digitalocean_record" "run_naba_mx_verfication" {
+  domain = digitalocean_domain.run_naba.name
+  name = "@"
+  type = "MX"
+  value = "6g2v7g2b4k3wvnlvoozj4syt6qswc5vo7ylaealldsie6yizvrha.mx-verification.google.com."
+  priority = 15
+  ttl = 3600
+}
+
 resource "digitalocean_record" "iris" {
   domain = digitalocean_domain.xyz_nbrn.name
   name = "iris"
