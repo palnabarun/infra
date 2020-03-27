@@ -81,6 +81,27 @@ resource "digitalocean_record" "m_ns3" {
   value = "ns3.digitalocean.com."
 }
 
+resource "digitalocean_record" "s_ns1" {
+  domain = digitalocean_domain.xyz_nbrn.name
+  name = "s"
+  type = "NS"
+  value = "ns1.digitalocean.com."
+}
+
+resource "digitalocean_record" "s_ns2" {
+  domain = digitalocean_domain.xyz_nbrn.name
+  name = "s"
+  type = "NS"
+  value = "ns2.digitalocean.com."
+}
+
+resource "digitalocean_record" "s_ns3" {
+  domain = digitalocean_domain.xyz_nbrn.name
+  name = "s"
+  type = "NS"
+  value = "ns3.digitalocean.com."
+}
+
 resource "digitalocean_record" "iris" {
   domain = digitalocean_domain.xyz_nbrn.name
   name = "iris"
