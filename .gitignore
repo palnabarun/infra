@@ -8,8 +8,6 @@
 # .tfvars files
 *.tfvars
 
-**/variables.tf
-
 **/hosts
 **/ansible.log
 **/playbook.retry
