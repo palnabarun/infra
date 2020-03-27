@@ -60,6 +60,27 @@ resource "digitalocean_record" "run_naba_mx_verfication" {
   ttl = 3600
 }
 
+resource "digitalocean_record" "m_ns1" {
+  domain = digitalocean_domain.xyz_nbrn.name
+  name = "m"
+  type = "NS"
+  value = "ns1.digitalocean.com."
+}
+
+resource "digitalocean_record" "m_ns2" {
+  domain = digitalocean_domain.xyz_nbrn.name
+  name = "m"
+  type = "NS"
+  value = "ns2.digitalocean.com."
+}
+
+resource "digitalocean_record" "m_ns3" {
+  domain = digitalocean_domain.xyz_nbrn.name
+  name = "m"
+  type = "NS"
+  value = "ns3.digitalocean.com."
+}
+
 resource "digitalocean_record" "iris" {
   domain = digitalocean_domain.xyz_nbrn.name
   name = "iris"
