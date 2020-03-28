@@ -102,11 +102,29 @@ resource "digitalocean_record" "s_ns3" {
   value = "ns3.digitalocean.com."
 }
 
+resource "digitalocean_domain" "m_nbrn_xyz" {
+  name = "m.nbrn.xyz"
+}
+
+resource "digitalocean_record" "iris_m_nbrn_xyz" {
+  domain = digitalocean_domain.m_nbrn_xyz.name
+  name = "iris"
+  type = "CNAME"
+  value = "iris.m.nabarun.in."
+}
+
+resource "digitalocean_record" "jarvis_m_nbrn_xyz" {
+  domain = digitalocean_domain.m_nbrn_xyz.name
+  name = "jarvis"
+  type = "CNAME"
+  value = "jarvis.m.nabarun.in."
+}
+
 resource "digitalocean_record" "iris" {
   domain = digitalocean_domain.xyz_nbrn.name
   name = "iris"
-  type = "A"
-  value = var.IRIS_FIP
+  type = "CNAME"
+  value = "${digitalocean_record.iris_m_nbrn_xyz.fqdn}."
 }
 
 resource "digitalocean_record" "iris_vpn" {
@@ -126,6 +144,6 @@ resource "digitalocean_record" "vpn" {
 resource "digitalocean_record" "jarvis" {
   domain = digitalocean_domain.xyz_nbrn.name
   name = "jarvis"
-  type = "A"
-  value = var.JARVIS_FIP
+  type = "CNAME"
+  value = "${digitalocean_record.jarvis_m_nbrn_xyz.fqdn}."
 }
