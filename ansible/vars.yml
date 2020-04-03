@@ -1,3 +1,6 @@
+apt_repositories:
+  - name: ppa:wireguard/wireguard
+
 system_packages:
   - build-essential
   - git
@@ -12,6 +15,7 @@ system_packages:
   - golang-go
   - weechat
   - tmux
+  - wireguard
 
 python_packages:
   - virtualenv

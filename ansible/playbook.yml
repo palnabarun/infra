@@ -7,6 +7,11 @@
   become: true
 
   tasks:
+    - name: Add apt repositories
+      apt_repository:
+        repo: "{{item.name}}"
+      with_items: "{{ apt_repositories }}"
+
     - name: Update the Ubuntu package cache
       apt: update_cache=yes cache_valid_time=604800
 
