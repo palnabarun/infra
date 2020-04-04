@@ -16,6 +16,7 @@ system_packages:
   - weechat
   - tmux
   - wireguard
+  - mosh
 
 python_packages:
   - virtualenv
