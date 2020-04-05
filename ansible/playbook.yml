@@ -1,11 +1,10 @@
 ---
 - name: setup node
-  hosts: ubuntu
+  hosts: all
   vars_files:
     - vars.yml
   gather_facts: false
   become: true
-
   tasks:
     - name: Add apt repositories
       apt_repository:
