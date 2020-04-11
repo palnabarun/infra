@@ -158,3 +158,10 @@ resource "digitalocean_record" "jarvis" {
   type = "CNAME"
   value = "${digitalocean_record.jarvis_m_nbrn_xyz.fqdn}."
 }
+
+resource "digitalocean_record" "www_naba_run" {
+  domain = digitalocean_domain.run_naba.name
+  name = "pal"
+  type = "CNAME"
+  value = "${digitalocean_record.jarvis_m_nbrn_xyz.fqdn}."
+}
