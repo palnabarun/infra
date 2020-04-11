@@ -124,13 +124,6 @@ resource "digitalocean_record" "iris_m_nbrn_xyz" {
   value = "iris.m.nabarun.in."
 }
 
-resource "digitalocean_record" "jarvis_m_nbrn_xyz" {
-  domain = digitalocean_domain.m_nbrn_xyz.name
-  name = "jarvis"
-  type = "CNAME"
-  value = "jarvis.m.nabarun.in."
-}
-
 resource "digitalocean_record" "iris" {
   domain = digitalocean_domain.xyz_nbrn.name
   name = "iris"
@@ -150,13 +143,6 @@ resource "digitalocean_record" "vpn" {
   name = "vpn"
   type = "CNAME"
   value = "${digitalocean_record.iris.fqdn}."
-}
-
-resource "digitalocean_record" "jarvis" {
-  domain = digitalocean_domain.xyz_nbrn.name
-  name = "jarvis"
-  type = "CNAME"
-  value = "${digitalocean_record.jarvis_m_nbrn_xyz.fqdn}."
 }
 
 resource "digitalocean_record" "www_naba_run" {
