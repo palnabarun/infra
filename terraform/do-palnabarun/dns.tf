@@ -6,11 +6,22 @@ resource "digitalocean_domain" "xyz_nbrn" {
   name = "nbrn.xyz"
 }
 
+# resource "digitalocean_record" "__mx_naba_run" {
+#   for_each = toset(var.GOOGLE_MX_RECORDS)
+
+#   domain = digitalocean_domain.run_naba.name
+#   name = "@"
+#   type = "MX"
+#   value = each.value["value"]
+#   priority = each.value["priority"]
+#   ttl = 3600
+# }
+
 resource "digitalocean_record" "run_naba_mx" {
   domain = digitalocean_domain.run_naba.name
   name = "@"
   type = "MX"
-  value = "ASPMX.L.GOOGLE.COM."
+  value = "aspmx.l.google.com."
   priority = 1
   ttl = 3600
 }
@@ -19,7 +30,7 @@ resource "digitalocean_record" "run_naba_mx_alt1" {
   domain = digitalocean_domain.run_naba.name
   name = "@"
   type = "MX"
-  value = "ALT1.ASPMX.L.GOOGLE.COM."
+  value = "alt1.aspmx.l.google.com."
   priority = 5
   ttl = 3600
 }
@@ -28,7 +39,7 @@ resource "digitalocean_record" "run_naba_mx_alt2" {
   domain = digitalocean_domain.run_naba.name
   name = "@"
   type = "MX"
-  value = "ALT2.ASPMX.L.GOOGLE.COM."
+  value = "alt2.aspmx.l.google.com."
   priority = 5
   ttl = 3600
 }
@@ -37,7 +48,7 @@ resource "digitalocean_record" "run_naba_mx_alt3" {
   domain = digitalocean_domain.run_naba.name
   name = "@"
   type = "MX"
-  value = "ALT3.ASPMX.L.GOOGLE.COM."
+  value = "alt3.aspmx.l.google.com."
   priority = 10
   ttl = 3600
 }
@@ -46,7 +57,7 @@ resource "digitalocean_record" "run_naba_mx_alt4" {
   domain = digitalocean_domain.run_naba.name
   name = "@"
   type = "MX"
-  value = "ALT4.ASPMX.L.GOOGLE.COM."
+  value = "alt4.aspmx.l.google.com."
   priority = 10
   ttl = 3600
 }
