@@ -116,24 +116,3 @@ resource "digitalocean_record" "s_ns3" {
 resource "digitalocean_domain" "m_nbrn_xyz" {
   name = "m.nbrn.xyz"
 }
-
-resource "digitalocean_record" "iris_m_nbrn_xyz" {
-  domain = digitalocean_domain.m_nbrn_xyz.name
-  name = "iris"
-  type = "CNAME"
-  value = "iris.m.nabarun.in."
-}
-
-resource "digitalocean_record" "vpn" {
-  domain = digitalocean_domain.xyz_nbrn.name
-  name = "vpn"
-  type = "CNAME"
-  value = "${digitalocean_record.iris_m_nbrn_xyz.fqdn}."
-}
-
-resource "digitalocean_record" "www_naba_run" {
-  domain = digitalocean_domain.run_naba.name
-  name = "pal"
-  type = "CNAME"
-  value = "${digitalocean_record.iris_m_nbrn_xyz.fqdn}."
-}
