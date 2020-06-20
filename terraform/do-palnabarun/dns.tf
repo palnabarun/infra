@@ -116,3 +116,17 @@ resource "digitalocean_record" "s_ns3" {
 resource "digitalocean_domain" "m_nbrn_xyz" {
   name = "m.nbrn.xyz"
 }
+
+resource "digitalocean_record" "naba_run" {
+  domain = digitalocean_domain.run_naba.name
+  name = "@"
+  type = "A"
+  value = var.ALPHA_FIP
+}
+
+resource "digitalocean_record" "_wildcard_naba_run" {
+  domain = digitalocean_domain.run_naba.name
+  name = "*"
+  type = "CNAME"
+  value = "naba.run."
+}
