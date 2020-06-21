@@ -1,0 +1,79 @@
+---
+- name: bootstrap home raspberrys running base Arch aarm64
+  hosts: minions
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    users:
+      - name: nabarun
+        authorized_keys:
+          - files/keys/rsa.pub
+        groups:
+          - wheel
+          - docker
+  tasks:
+    - name: Update cache and upgrade
+      pacman:
+        update_cache: true
+        upgrade: true
+    - name: Install packages
+      pacman:
+        name:
+          - git
+          - sudo
+          - openssl
+          - net-tools
+          - python-pip
+          - wget
+          - htop
+          - base-devel
+          - curl
+          - docker
+          - tmux
+          - mosh
+        state: present
+    - name: Install python packages
+      pip:
+        name:
+          - virtualenv
+          - virtualenvwrapper
+        state: present
+    - name: Set hostname
+      hostname:
+        name: "{{ hostname }}"
+    - name: Create user groups
+      group:
+        name: "{{item.name}}"
+        state: "{{item.state | default('present')}}"
+      with_items: "{{ users }}"
+    - name: Create users
+      user:
+        name: "{{ item.name }}"
+        state: "{{item.state | default('present')}}"
+        group: "{{ item.name }}"
+        groups: "{{item.groups}}"
+        shell: "/bin/bash"
+      with_items: "{{ users }}"
+    - name: Adds SSH keys
+      authorized_key: "user={{ item.0.name }} key='{{ lookup('file', item.1) }}'"
+      with_subelements:
+         - "{{ users }}"
+         - authorized_keys
+    - name: Disable root login
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        state: present
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin no'
+    - name: Disable password authentication
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        state: present
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+    - name: Enable password less sudo for users in sudo group
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL:ALL) NOPASSWD:ALL'
