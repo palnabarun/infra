@@ -1,0 +1,46 @@
+---
+- name: Setup landing page
+  hosts: websites
+  become: true
+  vars:
+    host: naba.run
+    location:
+      type: alias
+      path: /opt/landing/site
+  tasks:
+    - name: Clone repository
+      git:
+        repo: 'https://github.com/palnabarun/landing.git'
+        dest: /opt/landing
+        recursive: no
+    - name: download theme submodule
+      command:
+        cmd: git submodule update --init --recursive themes/hugo-goa
+        chdir: /opt/landing
+    - name: Build resources
+      command:
+        cmd: make build
+        chdir: /opt/landing
+    - set_fact:
+        ssl_block: false
+    - name: Copy nginx config with SSL block hidden
+      template:
+        src: templates/nginx/nginx.conf
+        dest: /etc/nginx/sites-available/{{ host }}.conf
+    - name: Symlink config
+      file:
+        src: /etc/nginx/sites-available/{{ host }}.conf
+        dest: /etc/nginx/sites-enabled/{{ host }}.conf
+        state: link
+    - name: Create certificate
+      command: certbot certonly --nginx --agree-tos --email 404@naba.run --domain {{ host }} --eff-email --non-interactive --keep-until-expiring
+    - set_fact:
+        ssl_block: true
+    - name: Copy nginx config with SSL block
+      template:
+        src: templates/nginx/nginx.conf
+        dest: /etc/nginx/sites-available/{{ host }}.conf
+    - name: test nginx confiig
+      shell: nginx -t
+    - name: Reload nginx
+      command: nginx -s reload
