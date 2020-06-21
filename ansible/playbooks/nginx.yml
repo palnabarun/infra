@@ -1,0 +1,52 @@
+---
+- name: setup nginx
+  hosts: blr
+  become: true
+  tasks:
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+    - name: start nginx
+      service:
+          name: nginx
+          state: started
+    - name: remove default nginx default
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+    - name: Generate dhparams file
+      command: openssl dhparam -out /etc/ssl/certs/dhparam.pem 4096
+      args:
+        creates: /etc/ssl/certs/dhparam.pem
+    - name: copy all config files
+      copy:
+        src: files/nginx/{{ item }}.conf
+        dest: /etc/nginx/{{ item }}.conf
+      with_items:
+        - nginx
+        - protect
+        - proxy
+        - server_defaults
+        - ssl
+    - name: test nginx confiig
+      shell: nginx -t
+    - name: reload nginx
+      shell: nginx -s reload
+    - name: UFW - Enable logging
+      ufw:
+        logging: 'on'
+    - name: UFW - Allow SSH
+      ufw:
+        name: OpenSSH
+        rule: allow
+    - name: UFW - Allow Nginx 80 and 443
+      ufw:
+        name: 'Nginx Full'
+        rule: allow
+    - name: UFW - Allow port range 60000-61000 for UDP
+      ufw:
+        port: 60000:61000
+        proto: udp
+        rule: allow
+    - name: UFW - Enable
+      ufw:
+        state: enabled

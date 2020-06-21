@@ -1,0 +1,24 @@
+---
+- name: Install and configure certbot
+  hosts: websites
+  become: true
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+    - name: Install software-properties-common
+      apt:
+        package: software-properties-common
+        state: present
+    - name: Add universe repository
+      apt_repository:
+        repo: "deb http://us.archive.ubuntu.com/ubuntu/ focal universe"
+    - name: Update package cache
+      apt:
+        update_cache: yes
+    - name: Install certbot
+      apt:
+        package:
+          - certbot
+          - python3-certbot-nginx
+        state: present
