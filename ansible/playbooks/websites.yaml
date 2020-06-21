@@ -1,0 +1,17 @@
+---
+- name: install tools like hugo
+  hosts: websites
+  become: true
+  tasks:
+    - name: download hugo debian package
+      get_url:
+        url: https://github.com/gohugoio/hugo/releases/download/v0.72.0/hugo_0.72.0_Linux-64bit.deb
+        dest: /opt/hugo.deb
+    - name: install hugo
+      apt:
+        deb: /opt/hugo.deb
+        state: present
+    - name: delete hugo debian package source
+      file:
+        path: /opt/hugo.deb
+        state: absent
