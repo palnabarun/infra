@@ -1,0 +1,28 @@
+system_packages:
+  - build-essential
+  - git
+  - openssl
+  - nginx
+  - net-tools
+  - python3-pip
+  - docker.io
+  - apache2-utils
+  - weechat
+  - tmux
+  - mosh
+
+python_packages:
+  - virtualenv
+  - pipenv
+  - virtualenvwrapper
+
+users:
+  - name: nabarun
+    authorized_keys:
+      - files/keys/helios.pub
+      - files/keys/hermes.pub
+      - files/keys/rsa.pub
+    groups:
+      - sudo
+      - docker
+    files: []
