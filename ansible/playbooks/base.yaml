@@ -51,5 +51,10 @@
     - name: Disable password authentication
       lineinfile: "dest=/etc/ssh/sshd_config state=present regexp='^PasswordAuthentication' line='PasswordAuthentication no'"
 
+    - name: Restart ssh daemon
+      service:
+        name: sshd
+        state: restarted
+
     - name: Enable password less sudo for users in sudo group
       lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL:ALL) NOPASSWD:ALL'"
