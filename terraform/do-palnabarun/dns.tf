@@ -6,6 +6,14 @@ resource "digitalocean_domain" "xyz_nbrn" {
   name = "nbrn.xyz"
 }
 
+resource "digitalocean_domain" "nabarun_top" {
+  name = "nabarun.top"
+}
+
+resource "digitalocean_domain" "nabarun_download" {
+  name = "nabarun.download"
+}
+
 # resource "digitalocean_record" "__mx_naba_run" {
 #   for_each = toset(var.GOOGLE_MX_RECORDS)
 
