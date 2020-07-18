@@ -15,7 +15,7 @@
         recursive: no
     - name: download theme submodule
       command:
-        cmd: git submodule update --init --recursive themes/hugo-goa
+        cmd: git submodule update --init --recursive themes/hugo-split-theme
         chdir: /opt/landing
     - name: Build resources
       command:
